@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 
 
@@ -39,7 +40,15 @@ const authControllers = {
             }
 
             if(user && validPassword){
-                res.status(200).json(user);
+                const accessToken = jwt.sign({
+                    id: user.id,
+                    admin: user.admin
+                },
+                process.env.JWT_SECRET,
+                {expiresIn: "365d"},
+            );
+                const {password, ...others} = user._doc;
+                res.status(200).json({...others,accessToken});
             }
         }catch(err){
             res.status(500).json(err);
