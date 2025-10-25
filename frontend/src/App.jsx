@@ -1,12 +1,15 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
+import Login from './pages/Login.jsx'
+import Register from './pages/Register.jsx'
+import Header from './components/Header.jsx'
+
 
 function App() {
 
 
   return (
     <>
-      
+      <Header/>
     </>
   )
 }
