@@ -26,6 +26,16 @@ const authControllers = {
         }
     },
 
+    // Generate JWT Token
+    generateAccessToken: (user) => {
+        return jwt.sign({
+            id: user.id,
+            admin: user.admin
+        },
+        process.env.JWT_SECRET,
+        {expiresIn: "365d"},
+        );
+    },
     // LOGIN USER
     loginUser: async(req, res) => {
         try{
@@ -40,13 +50,7 @@ const authControllers = {
             }
 
             if(user && validPassword){
-                const accessToken = jwt.sign({
-                    id: user.id,
-                    admin: user.admin
-                },
-                process.env.JWT_SECRET,
-                {expiresIn: "365d"},
-            );
+                const accessToken = authControllers.generateAccessToken(user);
                 const {password, ...others} = user._doc;
                 res.status(200).json({...others,accessToken});
             }
@@ -54,6 +58,7 @@ const authControllers = {
             res.status(500).json(err);
         }
     },
+
 }
 
 module.exports = authControllers;
