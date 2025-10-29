@@ -1,17 +1,31 @@
+.authContainer {
+    position: fixed;       /* Giữ cố định trên toàn màn hình */
+    top: 0;
+    left: 0;
+    width: 100vw;          /* Toàn bộ chiều ngang */
+    height: 100vh;         /* Toàn bộ chiều cao */
+    background: rgba(21, 21, 21, 0.4); /* Làm mờ nền */
+    display: flex;
+    justify-content: center; /* Căn giữa ngang */
+    align-items: center;     /* Căn giữa dọc */
+    z-index: 999;
+}
+
 .authForm {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 450px;
-    height: 500px;
-    margin-top: 100px;
+    height: 550px;
+    margin-top: 10px;
     border: 2px solid #ccc;
     border-radius: 15px;
+    background: #f0f2f5;
 }
 
 .authTitel {
   text-align: center;
-  margin-top: 40px;
+  margin-top: 20px;
   margin-bottom: 25px;
   letter-spacing: 3px;
   text-transform: uppercase;
@@ -85,8 +99,9 @@
 
 .closeForm {
     align-self: flex-end;
-    font-size: 20px;
-    width: 25px;
+    font-size: 18px;
+    width: 30px;
+    height: 30px;
     margin: 5px;
     font-weight: bold;
     background-color: #ff0000;

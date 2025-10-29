@@ -9,6 +9,6 @@ routes.post('/register', authControllers.registerUser);
 routes.post('/login', authControllers.loginUser);
 
 // LOG OUT
-routes.post('/logout',)
+
 
 module.exports = routes;

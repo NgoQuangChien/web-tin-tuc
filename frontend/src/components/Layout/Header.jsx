@@ -1,13 +1,39 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
-import { FaHouse, FaLandmark, FaPeopleRoof, FaGraduationCap, FaChartLine, FaGlobe, FaBasketball, FaBars, FaXmark, FaMagnifyingGlass } from 'react-icons/fa6';
+import { useState, useEffect } from 'react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { FaHouse, FaLandmark, FaPeopleRoof, FaGraduationCap, FaChartLine, FaGlobe, FaBasketball, FaBars, FaXmark, FaMagnifyingGlass, FaRightToBracket, FaRightFromBracket } from 'react-icons/fa6';
+import LoginForm from '../LoginForm';
+import RegisterForm from '../RegisterForm';
 import '../../style/header.css';
 
 export default function Header() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [user, setUser] = useState(null);
+    const [formType, setFormType] = useState(null);
+
+    const navigate = useNavigate();
 
     const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
     const closeSidebar = () => setIsSidebarOpen(false);
+
+    useEffect(() => {
+    const savedUser = localStorage.getItem("user");
+    if (savedUser) {
+        try {
+        setUser(JSON.parse(savedUser));
+        } catch (e) {
+        console.error("Lỗi parse user:", e);
+        localStorage.removeItem("user");
+        }
+    }
+    }, []);
+
+    // 🔹 Xử lý đăng xuất
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        setUser(null);
+        navigate('/'); // quay về trang chủ
+    };
 
     // Danh sách menu với đường dẫn
     const menuItems = [
@@ -23,7 +49,7 @@ export default function Header() {
     return(
         <header className='headerContainer'>
             {/* Logo */}
-            <NavLink to="/" className='logo' onClick={closeSidebar}>Logo</NavLink>
+            <div className='logo'>Logo</div>
 
             {/* Sidebar menu */}
             <div className={`sidebarContainer ${isSidebarOpen ? "active" : ""}`}>
@@ -39,7 +65,7 @@ export default function Header() {
                                 key={item.path}
                                 to={item.path}
                                 className={({ isActive }) => 
-                                    `menu-item ${isActive ? 'active' : ''}`
+                                    `menuItem ${isActive ? 'active' : ''}`
                                 }
                                 onClick={closeSidebar}
                             >
@@ -48,16 +74,24 @@ export default function Header() {
                             </NavLink>
                         );
                     })}
-                    <div>
-                        <button>Đăng nhập</button>
+                    {/*Khu vực đăng nhập / đăng xuất */}
+                    <div className='authSection menuGroup'>
+                        {!user ? (
+                        <div>
+                            <div className='menuItem' onClick={() => {setFormType('login'); closeSidebar()}}> <FaRightToBracket className='iconItem'/>Đăng nhập</div>
+                        </div>
+                        ) : (
+                        <div className='user'>
+                            <span className='userName'>Xin chào, <b>{user.username}</b></span>
+                            <div onClick={() => {handleLogout(); closeSidebar()}}><FaRightFromBracket className='iconItem iconLogout'/></div>
+                        </div>
+                        )}
                     </div>
                 </div>
             </div>
 
             {/* Overlay */}
             {isSidebarOpen && <div className="overlay" onClick={closeSidebar}></div>}
-
-        
 
             {/* Thanh tìm kiếm */}
             <div className="search">
@@ -71,6 +105,25 @@ export default function Header() {
             <button className="openSidebar" onClick={toggleSidebar}>
                 <FaBars className='iconItem'/>
             </button>
+
+            {/*Popup Login / Register */}
+            {formType === 'login' && (
+                <LoginForm 
+                    onClose={() => setFormType(null)} 
+                    onSwitchToRegister={() => setFormType('register')}
+                    onLoginSuccess={(user) => {
+                        setUser(user);
+                        setFormType(null);
+                    }}
+                />
+            )}
+
+            {formType === 'register' && (
+                <RegisterForm 
+                    onClose={() => setFormType(null)} 
+                    onSwitchToLogin={() => setFormType('login')}
+                />
+            )}
         </header>
     );
 }

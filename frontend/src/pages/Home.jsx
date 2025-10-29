@@ -1,5 +1,4 @@
-import Header from "../components/Layout/Header";
-import Footer from "../components/Layout/Footer";
+
 import '../style/home.css';
 export default function Home() {
 
@@ -58,8 +57,6 @@ export default function Home() {
         }
     ];
     return (
-        <div>
-            <Header/>
                 <div>
                     <h1 className="page-title">Tin tức nổi bật</h1>
                     <div className="news-grid">
@@ -83,7 +80,5 @@ export default function Home() {
                         ))}
                     </div>
                 </div>
-            <Footer/>
-        </div>
     );
 }

@@ -63,24 +63,25 @@
     gap: 15px;
 }
 
-.menu-item {
+.menuItem {
     display: flex;
     align-items: center;
     gap: 5px;
     color: #f0f0f0;
-    padding: 10px 10px;
+    padding: 5px 10px;
     cursor: pointer;
     transition: background-color 0.3s;
-    border-radius: 4px;
+    border-radius: 5px;
     text-decoration: none;
 }
 
-.menu-item:hover {
-    background-color: #006aff;
+.menuItem:hover {
+    transition: border-bottom 0.3s ease-in-out;
+    border-bottom: 5px solid #006aff;
 }
 
-.menu-item.active {
-  border-bottom: 5px solid #006aff;
+.menuItem.active {
+    border-bottom: 5px solid #006aff;
 }
 
 .closeSidebar {
@@ -99,6 +100,40 @@
 
 .iconItem {
     font-size: 1.2rem;
+}
+
+.authSection {
+    gap: 5px;
+}
+
+.user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f0f0f0;
+    padding: 10px;
+    width: 100%;
+    transition: background-color 0.3s;
+    border-radius: 5px;
+    gap: 20px;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.iconLogout {
+    display: flex;
+    align-items: center;          /* căn giữa icon theo chiều dọc */
+    justify-content: center;      /* căn giữa theo chiều ngang */
+    cursor: pointer;
+}
+
+.iconLogout:hover {
+    color: #ff4d4d;
+}
+
+.userName {
+    white-space: nowrap;
+    color: #00bfff;
 }
 
 /* Mobile Styles */
@@ -141,9 +176,10 @@
         gap: 0;
     }
 
-    .menu-item {
+    .menuItem {
         width: 100%;
         padding: 15px 10px;
+        gap:15px;
         border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
@@ -170,6 +206,7 @@
         background-color: rgba(0, 0, 0, 0.5);
         z-index: 999;
     }
+
 }
 
 /* Desktop Styles */
@@ -182,3 +219,6 @@
         flex: 0 1 300px;
     }
 }
+
+
+

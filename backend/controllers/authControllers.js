@@ -22,6 +22,11 @@ const authControllers = {
             const savedUser = await newUser.save();
             res.status(200).json(savedUser);
         }catch(err){
+            console.error(err); // Log ra server để debug
+            if (err.name === "ValidationError") {
+                const messages = Object.values(err.errors).map(val => val.message);
+                return res.status(400).json(messages.join(", "));
+            }
             res.status(500).json("Người dùng đã tồn tại!");
         }
     },
