@@ -25,23 +25,24 @@ export default function LoginForm({onClose, onSwitchToRegister, onLoginSuccess})
         try {
         const res = await axios.post("/auth/login", { username, password });
 
+        const userData = {
+            _id: res.data._id,
+            username: res.data.username,
+            email: res.data.email,
+            admin: res.data.admin,
+        };
         localStorage.setItem("token", res.data.accessToken);
-        localStorage.setItem("user", JSON.stringify({
-            _id: res.data._id,
-            username: res.data.username,
-            email: res.data.email,
-            admin: res.data.admin
-        }));
+        localStorage.setItem("user", JSON.stringify(userData));
 
-        onLoginSuccess({
-            _id: res.data._id,
-            username: res.data.username,
-            email: res.data.email,
-            admin: res.data.admin
-        });
+        onLoginSuccess(userData);
 
         onClose();
-        navigate("/");
+        // Chuyển hướng theo quyền
+        if (userData.admin) {
+            navigate("/quan-ly-tin-tuc");
+        } else {
+            navigate("/");
+        }
 
         } catch (err) {
             console.error("Login error:", err);

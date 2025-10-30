@@ -6,6 +6,7 @@ import CongNghe from '../pages/CongNghe';
 import KinhTe from '../pages/KinhTe';
 import TheThao from '../pages/TheThao';
 import NewsManagement from '../pages/NewsManagement';
+import UserManagement from '../pages/UserManagement';
 
 
 // Public routes
@@ -20,7 +21,8 @@ const publicRoutes = [
 ];
 
 const privateRoutes = [
-    {path: '/news-management', component: 'NewsManagement', layout: 'ManageLayout'},
+    {path: '/quan-ly-tin-tuc', component: NewsManagement, layout: 'ManageLayout'},
+    {path: '/quan-ly-nguoi-dung', component: UserManagement, layout: 'ManageLayout'},
 ];
 
 export { publicRoutes, privateRoutes };

@@ -3,7 +3,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const cookieParser = require('cookie-parser');
+
 const authRoutes = require('./routes/auth');
+const newsRoutes = require('./routes/news')
+
 
 dotenv.config();
 const app = express();
@@ -27,6 +30,9 @@ app.use(express.json());
 
 // ROUTES
 app.use("/v1/auth", authRoutes);
+
+app.use("/v1/news", newsRoutes);
+
 
 
 // Kết nối DB

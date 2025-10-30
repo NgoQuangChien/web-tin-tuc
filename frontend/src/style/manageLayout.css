@@ -1,0 +1,20 @@
+.containerManage {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+
+/* ===== Cột trái: Sidebar ===== */
+.headerManage {
+  width: 230px;
+  flex-shrink: 0; /* không co lại */
+}
+
+/* ===== Cột phải: Nội dung chính ===== */
+.contentManage {
+  flex: 1;
+  padding: 20px 30px;
+  background: #fff;
+  min-height: 100vh;
+  overflow-y: auto;
+}

@@ -27,7 +27,7 @@ const newsSchema = new mongoose.Schema({
         }
     },
 
-    excerpt: {
+    description: {
         type: String,
         required: true,
         minlength: 10,
@@ -68,5 +68,8 @@ const newsSchema = new mongoose.Schema({
 },
     ({ timestamps: true})
 );
+
+newsSchema.index({ category: 1, createdAt: -1 });
+newsSchema.index({ title: 'text', description: 'text' });
 
 module.exports = mongoose.model('news', newsSchema);

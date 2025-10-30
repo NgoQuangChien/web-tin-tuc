@@ -8,7 +8,6 @@ routes.post('/register', authControllers.registerUser);
 // LOGIN USER
 routes.post('/login', authControllers.loginUser);
 
-// LOG OUT
 
 
 module.exports = routes;
