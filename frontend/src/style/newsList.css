@@ -6,11 +6,11 @@
 }
 
 .news-list-title {
-  text-align: center;
   color: #2d3748;
-  margin-bottom: 2rem;
-  font-size: 2rem;
+  margin-bottom: 10px;
+  font-size: 28px;
   font-weight: bold;
+  border-bottom: 3px solid #c53030;
 }
 
 /* Grid layout */

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
-import {FaHouse,FaLandmark,FaPeopleRoof,FaGraduationCap,FaChartLine,FaGlobe,FaBasketball,FaBars,
-FaXmark,FaMagnifyingGlass,FaRightToBracket,FaRightFromBracket,FaRegNewspaper, FaUserGear} from "react-icons/fa6";
+import {FaHouse,FaLandmark,FaPeopleRoof,FaGraduationCap,FaChartLine,FaGlobe,FaBasketball,FaBars,FaXmark,FaMagnifyingGlass,FaRightToBracket,FaRightFromBracket,FaRegNewspaper,FaUserGear,} from "react-icons/fa6";
 import LoginForm from "../LoginForm";
 import RegisterForm from "../RegisterForm";
 import "../../style/header.css";
@@ -10,6 +9,7 @@ export default function Header() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [user, setUser] = useState(null);
   const [formType, setFormType] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navigate = useNavigate();
 
@@ -28,13 +28,23 @@ export default function Header() {
     }
   }, []);
 
-  // 🔹 Xử lý đăng xuất
+  //Search
+  const handleSearch = async (e) => {
+    e.preventDefault();
+    if (!searchTerm.trim()) return;
+    // Điều hướng sang trang kết quả tìm kiếm
+    navigate(`/search?q=${encodeURIComponent(searchTerm.trim())}`);
+    setSearchTerm("");
+  };
+
+  // Xử lý đăng xuất
   const handleLogout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
     navigate("/"); // quay về trang chủ
   };
+
 
   // Danh sách menu với đường dẫn
   const menuItems = [
@@ -45,6 +55,12 @@ export default function Header() {
     { path: "/cong-nghe", icon: FaGlobe, label: "Công nghệ" },
     { path: "/kinh-te", icon: FaChartLine, label: "Kinh tế" },
     { path: "/the-thao", icon: FaBasketball, label: "Thể thao" },
+  ];
+
+  // Menu quản lý cho admin
+  const adminMenuItems = [
+    { path: "/quan-ly-tin-tuc", icon: FaRegNewspaper, label: "Quản lý tin tức" },
+    { path: "/quan-ly-nguoi-dung", icon: FaUserGear, label: "Quản lý người dùng" },
   ];
 
   return (
@@ -76,26 +92,25 @@ export default function Header() {
           {/*Nếu là admin thì hiển thị thêm mục quản lý */}
           {user && user.admin && (
             <div className="adminSection menuGroup">
-              <div
-                className="menuItem"
-                onClick={() => {
-                  navigate("/quan-ly-tin-tuc");
-                  closeSidebar();
-                }}
-              >
-                <FaRegNewspaper className="iconItem"/>Quản lý tin tức
-              </div>
-              <div
-                className="menuItem"
-                onClick={() => {
-                  navigate("/quan-ly-nguoi-dung");
-                  closeSidebar();
-                }}
-              >
-                <FaUserGear className="iconItem"/>Quản lý người dùng
-              </div>
+              {adminMenuItems.map((item) => {
+                const IconComponent = item.icon;
+                return (
+                  <NavLink
+                    key={item.path}
+                    to={item.path}
+                    className={({ isActive }) =>
+                      `menuItem ${isActive ? "active" : ""}`
+                    }
+                    onClick={closeSidebar}
+                  >
+                    <IconComponent className="iconItem" />
+                    {item.label}
+                  </NavLink>
+                );
+              })}
             </div>
           )}
+
           {/*Khu vực đăng nhập / đăng xuất */}
           <div className="authSection menuGroup">
             {!user ? (
@@ -134,12 +149,50 @@ export default function Header() {
       {/* Overlay */}
       {isSidebarOpen && <div className="overlay" onClick={closeSidebar}></div>}
 
-      {/* Thanh tìm kiếm */}
-      <div className="search">
-        <input type="text" placeholder="Search..." />
-        <button>
+      <div className="searchGroup">
+        {/* Thanh tìm kiếm */}
+        <form className="search" onSubmit={handleSearch}>
+        <input
+          type="text"
+          placeholder="Tìm kiếm tin tức..."
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+        <button type="submit">
           <FaMagnifyingGlass className="iconItem" />
         </button>
+      </form>
+
+        {/* AuthSection cho desktop */}
+        <div className="authSection desktopOnly">
+          {!user ? (
+            <div
+              className="menuItem"
+              onClick={() => {
+                setFormType("login");
+                closeSidebar();
+              }}
+            >
+              <FaRightToBracket className="iconItem" />
+              Đăng nhập
+            </div>
+          ) : (
+            <div className="user">
+              <span className="userName">
+                Hi, <b>{user.username}</b>
+              </span>
+              <div
+                onClick={() => {
+                  handleLogout();
+                  closeSidebar();
+                }}
+              >
+                <FaRightFromBracket className="iconItem iconLogout" />
+              </div>
+            </div>
+          )}
+        </div>
+
       </div>
 
       {/* Nút mở sidebar */}

@@ -64,9 +64,9 @@ const NewsList = ({ category = '' }) => {
   if (error) {
     return (
       <div className="news-list-error">
-        <p>❌ {error}</p>
+        <p>{error}</p>
         <button onClick={fetchNews} className="btn-retry">
-          🔄 Thử lại
+          Thử lại
         </button>
       </div>
     );
@@ -78,7 +78,7 @@ const NewsList = ({ category = '' }) => {
       
       {news.length === 0 ? (
         <div className="news-list-empty">
-          <p>📝 Chưa có tin tức nào trong danh mục này.</p>
+          <p>Chưa có tin tức nào trong danh mục này.</p>
         </div>
       ) : (
         <div className="news-list-grid">
@@ -110,7 +110,7 @@ const getCategoryTitle = (category) => {
     'cong-nghe': 'Tin Công Nghệ',
     'kinh-te': 'Tin Kinh Tế',
     'the-thao': 'Tin Thể Thao',
-    'all': 'Tất Cả Tin Tức',
+    'all': 'Tin Tức',
     '': 'Tin Tức Nổi Bật'
   };
   return categories[category] || 'Tin Tức';

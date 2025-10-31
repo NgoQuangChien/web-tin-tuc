@@ -1,9 +1,10 @@
 import Header from "./Header";
 import Footer from "./Footer";
+import "../../style/mainLayout.css"
 
 function DefaultLayout({ children }) {
     return (  
-        <div>
+        <div className="mainContainer">
             <Header />
             <main className="mainContent">
                 {/* Nội dung trang sẽ được chèn ở đây */}

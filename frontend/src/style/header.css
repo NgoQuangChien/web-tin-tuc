@@ -1,5 +1,5 @@
 .headerContainer {
-    height: 60px;
+    height: 70px;
     width: 100vw;
     background-color: #0f1016;
     display: flex;
@@ -61,6 +61,7 @@
 .menuGroup {
     display: flex;
     align-items: center;
+    margin-left: 10px;
     gap: 15px;
 }
 
@@ -139,6 +140,18 @@
     color: #00bfff;
 }
 
+.desktopOnly {
+  display: flex;
+  gap: 10px;
+}
+
+.searchGroup {
+    display:flex;
+    justify-content: center;
+    gap: 20px;
+    margin-right: 10px;
+}
+
 /* Mobile Styles */
 @media (max-width: 768px) {
     .openSidebar {
@@ -210,6 +223,14 @@
         z-index: 999;
     }
 
+    .desktopOnly {
+        display: none !important; /* Ẩn khi ở mobile */
+    }
+
+    .sidebarContainer .authSection {
+        display: flex !important; /* Hiển thị phần auth trong sidebar */
+    }
+
 }
 
 /* Desktop Styles */
@@ -220,6 +241,18 @@
     
     .search {
         flex: 0 1 300px;
+    }
+
+    /* Ẩn khu vực đăng nhập trong sidebar khi ở desktop */
+    .sidebarContainer .authSection {
+        display: none !important;
+    }
+    
+    /* Hiển thị khu vực đăng nhập riêng cho desktop */
+    .desktopOnly {
+        display: flex !important;
+        align-items: center;
+        gap: 10px;
     }
 }
 

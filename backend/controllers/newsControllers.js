@@ -24,6 +24,7 @@ const getNews = async (req, res) => {
     }
     
     const news = await News.find(query)
+      .populate('author', 'username')
       .sort({ createdAt: -1 })
       .limit(limit * 1)
       .skip((page - 1) * limit);
@@ -125,6 +126,50 @@ const deleteNews = async (req, res) => {
   }
 };
 
+// Tìm kiếm tin tức theo từ khóa
+const searchNews = async (req, res) => {
+  try {
+    const { q } = req.query;
+
+    if (!q || q.trim() === '') {
+      return res.status(200).json({ 
+        success: true,
+        data: [],
+        message: "Vui lòng nhập từ khóa tìm kiếm" 
+      });
+    }
+
+    const keywords = q.trim().split(/\s+/);
+    
+    // Tìm bài có BẤT KỲ từ khóa nào
+    const news = await News.find({
+      $or: keywords.map(keyword => ({
+        $or: [
+          { title: { $regex: keyword, $options: "i" } },
+          { content: { $regex: keyword, $options: "i" } },
+          { description: { $regex: keyword, $options: "i" } }
+        ]
+      }))
+    })
+    .populate("author", "username fullName")
+    .sort({ createdAt: -1 })
+    .limit(50);
+
+    res.status(200).json({
+      success: true,
+      data: news,
+      count: news.length,
+      message: `Tìm thấy ${news.length} kết quả`
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      data: [],
+      message: "Lỗi server khi tìm kiếm"
+    });
+  }
+};
 
 module.exports = {
   getNews,
@@ -132,5 +177,5 @@ module.exports = {
   createNews,
   updateNews,
   deleteNews,
-  getNewsByCategory
+  searchNews
 };

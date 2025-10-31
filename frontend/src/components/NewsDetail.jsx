@@ -1,8 +1,21 @@
 import React from "react";
+import "../style/newsDetail.css"
 
 function NewsDetail({ show, onClose, news }) {
     if (!show || !news) return null;
 
+    // Hàm xử lý xuống dòng cho nội dung
+    const formatContent = (content) => {
+        if (!content) return '';
+        
+        // Thay thế các ký tự xuống dòng bằng thẻ <br />
+        return content.split('\n').map((line, index) => (
+            <React.Fragment key={index}>
+                {line}
+                {index < content.split('\n').length - 1 && <br />}
+            </React.Fragment>
+        ));
+    };
   return (
     <div className="modal-overlay">
       <div className="modal">
@@ -27,14 +40,13 @@ function NewsDetail({ show, onClose, news }) {
                 />
               </div>
             )}
-            <p>{news.content}</p>
+            <div className="news-content-text">
+              {formatContent(news.content)}
+            </div>
           </div>
           <div className="detail-meta">
             <p>
-              <strong>Tác giả:</strong> {news.author}
-            </p>
-            <p>
-              <strong>Ngày đăng:</strong> {news.date}
+              <strong>Ngày đăng:</strong> {new Date(news.createdAt).toLocaleDateString("vi-VN")}
             </p>
           </div>
         </div>
