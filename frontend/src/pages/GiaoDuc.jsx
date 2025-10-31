@@ -1,6 +1,9 @@
+import NewsList from "../components/NewsList";
 function GiaoDuc() {
     return ( 
-        <div>Giáo Dục</div>
+        <div className="page">
+            <NewsList category="giao-duc" />
+        </div>
     );
 }
 

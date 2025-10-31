@@ -1,7 +1,11 @@
+import NewsList from "../components/NewsList";
+
 function CongNghe() {
     return ( 
-        <div>Công Nghệ</div>
-    );
+        <div className="page">
+      <NewsList category="cong-nghe" />
+    </div>
+     );
 }
 
 export default CongNghe;

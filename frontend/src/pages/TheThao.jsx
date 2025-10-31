@@ -1,6 +1,10 @@
+import NewsList from "../components/NewsList";
+
 function TheThao() {
     return ( 
-        <div>Thể Thao</div>
+        <div className="page">
+            <NewsList category="the-thao" />
+        </div>
     );
 }
 

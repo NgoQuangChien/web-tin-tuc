@@ -2,7 +2,7 @@ import instance from './axios';
 
 
 // GET tất cả tin tức
-export const getNews = () => instance.get('/news/allnews');
+export const getNews = (queryParams = '') => instance.get(`/news/allnews${queryParams}`);
 
 // POST tạo tin tức
 export const createNews = (news) => instance.post('/news/createnews', news);
@@ -15,3 +15,5 @@ export const updateNews = (id, news) => instance.put(`/news/${id}/updatenews`, n
 
 // DELETE tin tức
 export const deleteNews = (id) => instance.delete(`/news/${id}/deletenews`);
+
+// GET tin tức theo category

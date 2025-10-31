@@ -125,10 +125,12 @@ const deleteNews = async (req, res) => {
   }
 };
 
+
 module.exports = {
   getNews,
   getNewsById,
   createNews,
   updateNews,
-  deleteNews
+  deleteNews,
+  getNewsByCategory
 };

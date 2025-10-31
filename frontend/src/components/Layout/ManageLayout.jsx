@@ -1,10 +1,10 @@
 
-import HeaderManage from "./HeaderManage";
-import "../../style/manageLayout.css"
+import Header from "./Header";
+
 function ManageLayout({children}) {
     return (  
         <div className="containerManage">
-            <HeaderManage className="headerManage"/>
+            <Header/>
             <div className="contentManage">
                 {children}
             </div>

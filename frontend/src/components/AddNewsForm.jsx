@@ -34,7 +34,7 @@ const AddNewsForm = ({ show, onClose, news, setNews, onSubmit, selectedNews }) =
 
         <div className="modal-body">
           <div className="form-group">
-            <label>Tiêu đề *</label>
+            <label>Tiêu đề:</label>
             <input
               type="text"
               name="title"
@@ -45,7 +45,7 @@ const AddNewsForm = ({ show, onClose, news, setNews, onSubmit, selectedNews }) =
           </div>
 
           <div className="form-group">
-            <label>Mô tả *</label>
+            <label>Mô tả:</label>
             <textarea
               name="description"
               placeholder="Nhập mô tả ngắn (10-200 ký tự)"
@@ -56,7 +56,7 @@ const AddNewsForm = ({ show, onClose, news, setNews, onSubmit, selectedNews }) =
           </div>
 
           <div className="form-group">
-            <label>Nội dung *</label>
+            <label>Nội dung:</label>
             <textarea
               name="content"
               placeholder="Nhập nội dung chi tiết (ít nhất 50 ký tự)"
@@ -68,7 +68,7 @@ const AddNewsForm = ({ show, onClose, news, setNews, onSubmit, selectedNews }) =
 
           <div className="form-row">
             <div className="form-group">
-              <label>URL Hình ảnh *</label>
+              <label>URL Hình ảnh:</label>
               <input
                 type="text"
                 name="url"
@@ -79,7 +79,7 @@ const AddNewsForm = ({ show, onClose, news, setNews, onSubmit, selectedNews }) =
             </div>
 
             <div className="form-group">
-              <label>Mô tả hình ảnh *</label>
+              <label>Mô tả hình ảnh:</label>
               <input
                 type="text"
                 name="alt"
@@ -92,7 +92,7 @@ const AddNewsForm = ({ show, onClose, news, setNews, onSubmit, selectedNews }) =
 
           <div className="form-row">
             <div className="form-group">
-              <label>Danh mục *</label>
+              <label>Danh mục:</label>
               <select
                 name="category"
                 value={news.category}
@@ -108,7 +108,7 @@ const AddNewsForm = ({ show, onClose, news, setNews, onSubmit, selectedNews }) =
             </div>
 
             <div className="form-group">
-              <label>Phạm vi *</label>
+              <label>Phạm vi:</label>
               <select
                 name="scope"
                 value={news.scope}

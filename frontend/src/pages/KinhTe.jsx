@@ -1,6 +1,9 @@
+import NewsList from "../components/NewsList";
 function KinhTe() {
     return ( 
-        <div>Kinh Tế</div>
+        <div className="page">
+            <NewsList category="kinh-te" />
+        </div>
     );
 }
 

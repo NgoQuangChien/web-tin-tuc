@@ -1,13 +1,17 @@
 .containerNewsManage {
     width: 100vw;
-    padding: 0px 100px;
+    padding: 0px 50px;
 }
 
 .app-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 5px;
   color: white;
-  padding:20px 0;
-  text-align: center;
+  height: 70px;
+  margin-top: 10px;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
@@ -23,6 +27,7 @@
 
 .toolbar {
   margin-bottom: 2rem;
+  margin-top: 2rem;
   display: flex;
   justify-content: flex-end;
 }
@@ -32,6 +37,7 @@
   color: white;
   border: none;
   padding: 0.75rem 1.5rem;
+  margin-right: 20px;
   border-radius: 8px;
   font-size: 1rem;
   font-weight: 600;
@@ -52,14 +58,14 @@
 }
 
 .news-card {
+  display: flex;
   background: white;
   border-radius: 12px;
-  padding: 1.5rem;
+  padding: 1rem;
+  height: 150px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
   transition: all 0.3s ease;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
+  align-items: flex-start; /* Quan trọng: căn các item theo đầu */
   border-left: 4px solid #667eea;
 }
 
@@ -68,9 +74,30 @@
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
 }
 
+.news-image {
+  width: 200px;
+  height: 120px;
+  overflow: hidden;
+  position: relative;
+  background: #f0f0f0;
+  flex-shrink: 0; /* Ngăn ảnh bị co lại */
+}
+
+.news-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
 .news-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Đảm bảo nội dung căn từ trên xuống */
   flex: 1;
-  margin-right: 1.5rem;
+  margin-left: 1.5rem; /* Thay margin-right thành margin-left */
+  padding: 0; /* Loại bỏ padding nếu có */
+  margin-top: 0; /* Đảm bảo không có margin-top */
 }
 
 .news-title {
@@ -78,12 +105,14 @@
   font-weight: 600;
   color: #2d3748;
   margin-bottom: 0.5rem;
+  margin-top: 0; /* Quan trọng: loại bỏ margin-top mặc định */
 }
 
 .news-preview {
   color: #718096;
   line-height: 1.6;
   margin-bottom: 1rem;
+  margin-top: 0; /* Đảm bảo không có khoảng cách trên */
 }
 
 .news-meta {
@@ -91,6 +120,14 @@
   gap: 1.5rem;
   font-size: 0.875rem;
   color: #a0aec0;
+  margin-top: auto; /* Đẩy meta xuống dưới cùng của card */
+}
+
+.news-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-self: flex-start; /* Căn các nút theo đầu */
 }
 
 .news-actions {
@@ -155,7 +192,7 @@
   background: white;
   border-radius: 12px;
   width: 100%;
-  max-width: 600px;
+  max-width: 1000px;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
@@ -172,7 +209,7 @@
 .modal-header h2 {
   font-size: 1.5rem;
   font-weight: 600;
-  color: #2d3748;
+  color: #ffffff;
 }
 
 .close-btn {
@@ -281,10 +318,25 @@
 }
 
 .detail-content {
+  text-align: justify;
   line-height: 1.7;
   color: #4a5568;
+  padding-bottom: 10px;
+  overflow: hidden;
 }
 
+.detail-image {
+  float: left;
+  margin-right: 1rem;
+  margin-bottom: 0.5rem;
+  max-width: 300px;
+}
+
+.detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
 /* Responsive design */
 @media (max-width: 768px) {
   .container {

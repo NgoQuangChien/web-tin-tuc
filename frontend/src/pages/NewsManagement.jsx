@@ -3,6 +3,7 @@ import "../style/newsManagement.css";
 import AddNewsForm from "../components/AddNewsForm";
 import { getNews, createNews, updateNews, deleteNews } from "../api/newsApi";
 import NewsCard from "../components/NewsCard";
+import NewsDetail from "../components/NewsDetail";
 
 export default function NewsManagement() {
   // Danh sách tin tức
@@ -135,7 +136,7 @@ export default function NewsManagement() {
       {/* Thanh công cụ */}
       <div className="toolbar">
         <button className="btn-add" onClick={() => setShowModal(true)}>
-          + Thêm tin tức mới
+          + Thêm tin tức
         </button>
       </div>
 
@@ -163,6 +164,12 @@ export default function NewsManagement() {
         setNews={setNewNews}
         onSubmit={handleSubmit}
         selectedNews={selectedNews}
+      />
+
+      <NewsDetail
+        show={showDetail}
+        onClose={() => setShowDetail(false)}
+        news={selectedNews}
       />
 
     </div>

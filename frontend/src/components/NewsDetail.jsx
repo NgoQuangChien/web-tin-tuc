@@ -15,8 +15,18 @@ function NewsDetail({ show, onClose, news }) {
 
         <div className="modal-body">
           <h3 className="detail-title">{news.title}</h3>
-          
+
           <div className="detail-content">
+            {/* ---- Thêm ảnh ở đây ---- */}
+            {news.image?.url && (
+              <div className="detail-image">
+                <img
+                  src={news.image.url}
+                  alt={news.image.alt || "Ảnh tin tức"}
+                  className="news-thumbnail"
+                />
+              </div>
+            )}
             <p>{news.content}</p>
           </div>
           <div className="detail-meta">
