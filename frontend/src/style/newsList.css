@@ -46,7 +46,7 @@
 /* Tablet: 2 columns */
 @media (max-width: 1024px) {
   .news-list-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

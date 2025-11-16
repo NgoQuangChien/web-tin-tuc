@@ -2,7 +2,12 @@
 import React from "react";
 import "../style/newsItem.css";
 
+// Props:
+// - news: object chứa dữ liệu bài viết (title, image, category, content, ...)
+// - onView: function callback (tùy chọn) được gọi khi người dùng muốn xem chi tiết
 const NewsItem = ({ news, onView }) => {
+  // Hàm handler: kiểm tra onView tồn tại và là function trước khi gọi
+  // Tránh lỗi khi parent không truyền prop này
   const handleView = () => {
     if (onView && typeof onView === "function") {
       onView(news);
@@ -26,8 +31,6 @@ const NewsItem = ({ news, onView }) => {
       <div className="news-item-content">
         <h4 className="news-item-title">{news.title}</h4>
 
-        
-
         {/* Nút hành động */}
         <div className="news-item-actions">
           <button
@@ -41,19 +44,6 @@ const NewsItem = ({ news, onView }) => {
       </div>
     </div>
   );
-};
-
-// Helper function hiển thị tên danh mục đẹp
-const getCategoryName = (category) => {
-  const categories = {
-    "xa-hoi": "Xã Hội",
-    "chinh-tri": "Chính Trị",
-    "giao-duc": "Giáo Dục",
-    "cong-nghe": "Công Nghệ",
-    "kinh-te": "Kinh Tế",
-    "the-thao": "Thể Thao",
-  };
-  return categories[category] || category;
 };
 
 export default NewsItem;

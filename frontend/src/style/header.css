@@ -256,5 +256,86 @@
     }
 }
 
+/* Mobile Styles */
+@media (max-width: 1024px) {
+    .openSidebar {
+        display: block;
+    }
+
+    /* Ẩn menu trên mobile */
+    .menuGroup {
+        display: none;
+    }
+
+    /* Sidebar cho mobile */
+    .sidebarContainer {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        width: 300px;
+        height: 100vh;
+        background-color: #0f1016;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        padding: 20px;
+        box-shadow: -5px 0 5px rgba(0, 0, 0, 0.25);
+        transition: right 0.75s ease-out;
+        z-index: 1000;
+    }
+
+    .sidebarContainer.active {
+        right: 0;
+    }
+
+    .sidebarContainer .menuGroup {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        width: 100%;
+        gap: 0;
+    }
+
+    .menuItem {
+        width: 100%;
+        padding: 15px 10px;
+        gap:15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .closeSidebar {
+        display: block;
+        align-self: flex-end;
+        margin-bottom: 20px;
+    }
+
+    /* Điều chỉnh thanh search trên mobile */
+    .search {
+        flex: 1;
+        max-width: 200px;
+        margin: 0 10px;
+    }
+
+    .overlay {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+    }
+
+    .desktopOnly {
+        display: none !important; /* Ẩn khi ở mobile */
+    }
+
+    .sidebarContainer .authSection {
+        display: flex !important; /* Hiển thị phần auth trong sidebar */
+    }
+
+}
+
 
 

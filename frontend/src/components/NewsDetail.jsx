@@ -2,12 +2,12 @@ import React from "react";
 import "../style/newsDetail.css"
 
 function NewsDetail({ show, onClose, news }) {
+  // Nếu không được yêu cầu hiển thị hoặc không có dữ liệu news -> không render gì cả
     if (!show || !news) return null;
 
     // Hàm xử lý xuống dòng cho nội dung
     const formatContent = (content) => {
         if (!content) return '';
-        
         // Thay thế các ký tự xuống dòng bằng thẻ <br />
         return content.split('\n').map((line, index) => (
             <React.Fragment key={index}>
