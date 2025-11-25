@@ -4,7 +4,7 @@ const News = require('../models/News');
 //  GET /api/news
 const getNews = async (req, res) => {
   try {
-    const { category, scope} = req.query;
+    const {category} = req.query;
     
     let query = {};
     
@@ -13,18 +13,13 @@ const getNews = async (req, res) => {
       query.category = category;
     }
     
-    // Filter by scope
-    if (scope && scope !== 'all') {
-      query.scope = scope;
-    }
-    
     const news = await News.find(query)
       .populate('author', 'username')
       .sort({ createdAt: -1 })
     
     const total = await News.countDocuments(query);
     
-    res.json({
+    res.json({ 
       news,
       total
     });
@@ -39,16 +34,16 @@ const getNews = async (req, res) => {
 const getNewsById = async (req, res) => {
   try {
     const news = await News.findByIdAndUpdate(
-      req.params.id,
+      req.params.id, // Lấy ID từ tham số URL
       { $inc: { views: 1 } },
-      { new: true }
+      { new: true } // Trả về tài liệu đã được cập nhật
     );
     
     if (!news) {
-      return res.status(404).json({ message: 'Tin tức không tồn tại' });
+      return res.status(404).json({ message: 'Tin tức không tồn tại' }); // Tránh trả về null
     }
     
-    res.json(news);
+    res.json(news); // Trả về tin tức đã được cập nhật
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -59,17 +54,10 @@ const getNewsById = async (req, res) => {
 
 const createNews = async (req, res) => {
   try {
-    const news = new News(req.body);
+    const news = new News(req.body); // Tạo một tin mới từ dữ liệu trong req.body
     const savedNews = await news.save();
-    res.status(201).json(savedNews);
+    res.status(201).json(savedNews); // Trả về tin đã được lưu với mã trạng thái 201
   } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ message: 'Tiêu đề tin tức đã tồn tại' });
-    }
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({ message: messages.join(', ') });
-    }
     res.status(400).json({ message: error.message });
   }
 };
@@ -82,7 +70,7 @@ const updateNews = async (req, res) => {
     const news = await News.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true, runValidators: true }
+      {new: true}
     );
     
     if (!news) {
@@ -91,13 +79,6 @@ const updateNews = async (req, res) => {
     
     res.json(news);
   } catch (error) {
-    if (error.code === 11000) {
-      return res.status(400).json({ message: 'Tiêu đề tin tức đã tồn tại' });
-    }
-    if (error.name === 'ValidationError') {
-      const messages = Object.values(error.errors).map(err => err.message);
-      return res.status(400).json({ message: messages.join(', ') });
-    }
     res.status(400).json({ message: error.message });
   }
 };
@@ -105,7 +86,7 @@ const updateNews = async (req, res) => {
 //DELETE /api/news/:id
 const deleteNews = async (req, res) => {
   try {
-    const news = await News.findByIdAndDelete(req.params.id);
+    const news = await News.findByIdAndDelete(req.params.id); // Xóa tin tức theo ID
     
     if (!news) {
       return res.status(404).json({ message: 'Tin tức không tồn tại' });
@@ -120,9 +101,9 @@ const deleteNews = async (req, res) => {
 // Tìm kiếm tin tức theo từ khóa
 const searchNews = async (req, res) => {
   try {
-    const { q } = req.query;
+    const { q } = req.query; // Lấy từ khóa tìm kiếm từ query parameters
 
-    if (!q || q.trim() === '') {
+    if (!q || q.trim() === '') { // Nếu từ khóa rỗng
       return res.status(200).json({ 
         success: true,
         data: [],
@@ -130,16 +111,16 @@ const searchNews = async (req, res) => {
       });
     }
 
-    const phrase = q.trim();
+    const phrase = q.trim(); // Loại bỏ khoảng trắng thừa
 
-    // Sử dụng regex để tìm kiếm chính xác hơn
     const news = await News.find({
       $or: [
-        { title: { $regex: phrase, $options: 'i' } },
-        { content: { $regex: phrase, $options: 'i' } }
+        { title: { $regex: phrase, $options: 'i' } }, // Tìm trong tiêu đề
+        { content: { $regex: phrase, $options: 'i' } }, // Tìm trong nội dung
+        { description: { $regex: phrase, $options: 'i' } } // Tìm trong mô tả
       ]
     })
-    .populate("author", "username fullName")
+    .populate("author") // Lấy thông tin
     .sort({ createdAt: -1 }) // Sắp xếp mới nhất trước
     .limit(50);
 

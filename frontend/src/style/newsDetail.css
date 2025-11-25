@@ -29,10 +29,10 @@
   border-radius: 5px;
 }
 
-.modal-overlay .modal .modal-header h2 {
-  font-size: 1.2rem;
+.modal-header h2 {
+  font-size: 1.5rem;
   font-weight: 600;
-  color: #2d3748; /* match news item title color */
+  color: #ffffff;
 }
 
 .close-btn {

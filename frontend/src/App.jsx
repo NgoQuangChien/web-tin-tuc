@@ -13,11 +13,11 @@ function App() {
     <Router>
         <div className='App'>
             <Routes>
-              {publicRoutes.map((route, index) => {
-                const Layout = MainLayout
+              {publicRoutes.map((route, index) => { // map qua tất cả các route công khai
+                const Layout = MainLayout // sử dụng MainLayout cho các trang công khai
                 const Page = route.component
                 return (
-                  <Route key={index} path = {route.path} element = {<Layout><Page/></Layout>}/>
+                  <Route key={index} path = {route.path} element = {<Layout><Page/></Layout>}/> // tạo route với layout và component tương ứng
                 )
               })}       
 
@@ -31,7 +31,7 @@ function App() {
                     key={index}
                     path={route.path}
                     element={
-                      <PrivateRoute>
+                      <PrivateRoute> // bảo vệ route riêng tư
                         <Layout>
                           <Page />
                         </Layout>

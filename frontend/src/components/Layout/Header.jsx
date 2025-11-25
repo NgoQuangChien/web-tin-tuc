@@ -101,7 +101,7 @@ export default function Header() {
                     key={item.path}
                     to={item.path}
                     className={({ isActive }) =>
-                      `menuItem ${isActive ? "active" : ""}`
+                      `menuItem ${isActive ? "active" : ""}` // thêm lớp active nếu đang ở trang đó
                     }
                     onClick={closeSidebar}
                   >

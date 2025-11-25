@@ -1,4 +1,4 @@
-
+// hiển thị tin mục quản lý tin tức
 
 const NewsCard = ({ news, onView, onEdit, onDelete }) => {
   return (

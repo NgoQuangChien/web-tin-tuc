@@ -1,6 +1,8 @@
 import React from "react";
 import "../style/newsDetail.css"
 
+// Component hiển thị chi tiết tin tức
+
 function NewsDetail({ show, onClose, news }) {
   // Nếu không được yêu cầu hiển thị hoặc không có dữ liệu news -> không render gì cả
     if (!show || !news) return null;

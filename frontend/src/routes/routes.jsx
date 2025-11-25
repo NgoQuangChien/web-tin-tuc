@@ -6,8 +6,6 @@ import CongNghe from '../pages/CongNghe';
 import KinhTe from '../pages/KinhTe';
 import TheThao from '../pages/TheThao';
 import Search from '../pages/Search';
-import NewsManagement from '../pages/NewsManagement';
-import UserManagement from '../pages/UserManagement';
 
 
 // Public routes
@@ -22,9 +20,5 @@ const publicRoutes = [
     {path: '/search', component : Search, layout: 'MainLayout'},
 ];
 
-const privateRoutes = [
-    {path: '/quan-ly-tin-tuc', component: NewsManagement, layout: 'ManageLayout'},
-    {path: '/quan-ly-nguoi-dung', component: UserManagement, layout: 'ManageLayout'},
-];
 
-export { publicRoutes, privateRoutes };
+export { publicRoutes };

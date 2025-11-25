@@ -8,8 +8,8 @@ const authControllers = {
     registerUser: async(req, res) => {
         try{
             // Mã hóa mật khẩu
-            const salt = await bcrypt.genSalt(10);
-            const hashed = await bcrypt.hash(req.body.password, salt);
+            const salt = await bcrypt.genSalt(10); // tạo một salt với độ phức tạp là 10
+            const hashed = await bcrypt.hash(req.body.password, salt); // Kết hơp mật khẩu với salt để tạo thành mật khẩu đã mã hóa
 
             if(!req.body.username || !req.body.email || !req.body.password){
                 return res.status(400).json("Vui lòng điền đầy đủ thông tin!");
@@ -60,8 +60,8 @@ const authControllers = {
             id: user.id,
             admin: user.admin
         },
-        process.env.JWT_SECRET,
-        {expiresIn: "365d"},
+        process.env.JWT_SECRET, // Khóa bí mật dùng để mã hóa token
+        {expiresIn: "365d"}, // Thời gian hết hạn của token
         );
     },
     // LOGIN USER
@@ -80,7 +80,7 @@ const authControllers = {
 
             if(user && validPassword){
                 const accessToken = authControllers.generateAccessToken(user);
-                const {password, ...others} = user._doc;
+                const {password, ...others} = user._doc; // Loai bỏ trường password khi trả về client
                 res.status(200).json({...others,accessToken});
             }
         }catch(err){

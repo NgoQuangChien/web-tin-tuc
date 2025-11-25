@@ -65,10 +65,10 @@ const newsSchema = new mongoose.Schema({
     }
 
 },
-    ({ timestamps: true})
+    ({ timestamps: true}) // Tự động tạo createdAt và updatedAt
 );
 
-newsSchema.index({ category: 1, createdAt: -1 });
-newsSchema.index({ title: 'text', content: 'text' , description: 'text'});
+newsSchema.index({ category: 1, createdAt: -1 }); // Tạo index cho category và createdAt để tối ưu truy vấn danh sách theo danh mục, 1 là tăng dần, -1 là giảm dần
+newsSchema.index({ title: 'text', content: 'text' , description: 'text'}); // Tạo index text để tối ưu tìm kiếm
 
 module.exports = mongoose.model('news', newsSchema);

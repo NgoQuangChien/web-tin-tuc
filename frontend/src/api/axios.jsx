@@ -1,6 +1,7 @@
 
 import axios from 'axios';
 
+// Kết nối tới backend API
 const instance = axios.create({
     baseURL: "http://localhost:5000/v1",
 

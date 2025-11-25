@@ -7,19 +7,18 @@ import '../style/auth.css'
 
 
 export default function LoginForm({onClose, onSwitchToRegister, onLoginSuccess}) {
-
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
     const [success, setSuccess] = useState(null);
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Sử dụng hook useNavigate để chuyển hướng
 
 
     async function handleLoginSubmit(e) {
-        e.preventDefault();
+        e.preventDefault(); // tránh trang load lại
         // Xử lý đăng nhập ở đây
         try {
-        const res = await axios.post("/auth/login", { username, password });
+        const res = await axios.post("/auth/login", { username, password }); // Gửi yêu cầu đăng nhập
 
         const userData = {
             _id: res.data._id,
@@ -27,12 +26,12 @@ export default function LoginForm({onClose, onSwitchToRegister, onLoginSuccess})
             email: res.data.email,
             admin: res.data.admin,
         };
-        localStorage.setItem("token", res.data.accessToken);
-        localStorage.setItem("user", JSON.stringify(userData));
+        localStorage.setItem("token", res.data.accessToken); // Lưu token vào localStorage
+        localStorage.setItem("user", JSON.stringify(userData)); // Lưu thông tin user vào localStorage
 
-        onLoginSuccess(userData);
-
+        onLoginSuccess(userData); // Gọi hàm callback khi đăng nhập thành công để cập nhật trạng thái ở App.jsx
         onClose();
+
         // Chuyển hướng theo quyền
         if (userData.admin) {
             navigate("/quan-ly-tin-tuc");

@@ -125,8 +125,7 @@ const getCategoryTitle = (category) => {
     'cong-nghe': 'Tin Công Nghệ',
     'kinh-te': 'Tin Kinh Tế',
     'the-thao': 'Tin Thể Thao',
-    'all': 'Tin Tức',
-    '': 'Tin Tức Nổi Bật'
+    'all': 'Tin Tức Mới Nhất',
   };
   return categories[category] || 'Tin Tức';
 };

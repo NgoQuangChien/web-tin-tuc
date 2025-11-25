@@ -2,14 +2,16 @@
 import React from 'react';
 import "../style/addNews.css"
 
+
 const AddNewsForm = ({ show, onClose, news, setNews, onSubmit, selectedNews }) => {
+  
   if (!show) return null;
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setNews(prev => ({
-      ...prev,
-      [name]: value
+    setNews(prev => ({ // Cập nhật trạng thái news
+      ...prev, // giữ nguyên các thuộc tính khác
+      [name]: value // chỉ cập nhật thuộc tính đang thay đổi
     }));
   };
 
@@ -126,7 +128,7 @@ const AddNewsForm = ({ show, onClose, news, setNews, onSubmit, selectedNews }) =
             Hủy
           </button>
           <button className="btn-submit" onClick={onSubmit}>
-            {selectedNews ? "Cập nhật" : "Thêm tin"}
+            {selectedNews ? "Cập nhật" : "Thêm tin"} // selectedNews tồn tại thì là cập nhật, không thì thêm mới
           </button>
         </div>
       </div>
