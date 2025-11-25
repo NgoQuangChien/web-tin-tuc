@@ -11,17 +11,13 @@ export default function LoginForm({onClose, onSwitchToRegister, onLoginSuccess})
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
     const navigate = useNavigate();
 
 
     async function handleLoginSubmit(e) {
         e.preventDefault();
         // Xử lý đăng nhập ở đây
-        if (!username || !password) {
-            setError("Vui lòng nhập đầy đủ thông tin");
-            return;
-        }
-
         try {
         const res = await axios.post("/auth/login", { username, password });
 
@@ -45,8 +41,8 @@ export default function LoginForm({onClose, onSwitchToRegister, onLoginSuccess})
         }
 
         } catch (err) {
-            console.error("Login error:", err);
-            setError(err.response?.data?.message || "Đăng nhập thất bại");
+            setError(err.response?.data || "Đăng nhập thất bại");
+            setSuccess(null);
         }
     }
     return(
@@ -78,6 +74,7 @@ export default function LoginForm({onClose, onSwitchToRegister, onLoginSuccess})
                     <p>Don't have an account yet? <span className = 'authNow' onClick={onSwitchToRegister}>Sign up now</span></p>
 
                     {error && <p className="errorMessage">{error}</p>}
+                    {success && <p className="successMessage">{success}</p>}
                 </div>
             </form>
         </div>

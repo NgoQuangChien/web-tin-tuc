@@ -39,6 +39,8 @@ export default function Header() {
 
   // Xử lý đăng xuất
   const handleLogout = () => {
+    const confirmed = window.confirm("Bạn có chắc chắn muốn đăng xuất không?");
+    if (!confirmed) return;
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);

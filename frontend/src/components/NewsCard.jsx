@@ -26,7 +26,7 @@ const NewsCard = ({ news, onView, onEdit, onDelete }) => {
 
         <div className="news-meta">
           <span className="author">
-            Tác giả: {news.author?.username || "Không rõ"}
+            Tác giả: {news.author?.username || "Ẩn danh"}
           </span>
           <span className="date">
             Ngày: {new Date(news.createdAt).toLocaleDateString("vi-VN")}

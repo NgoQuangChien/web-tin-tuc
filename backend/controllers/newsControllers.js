@@ -4,7 +4,7 @@ const News = require('../models/News');
 //  GET /api/news
 const getNews = async (req, res) => {
   try {
-    const { category, scope, page = 1, limit = 10, search } = req.query;
+    const { category, scope} = req.query;
     
     let query = {};
     
@@ -18,23 +18,14 @@ const getNews = async (req, res) => {
       query.scope = scope;
     }
     
-    // Search functionality
-    if (search) {
-      query.$text = { $search: search };
-    }
-    
     const news = await News.find(query)
       .populate('author', 'username')
       .sort({ createdAt: -1 })
-      .limit(limit * 1)
-      .skip((page - 1) * limit);
     
     const total = await News.countDocuments(query);
     
     res.json({
       news,
-      totalPages: Math.ceil(total / limit),
-      currentPage: page,
       total
     });
   } catch (error) {
@@ -139,20 +130,17 @@ const searchNews = async (req, res) => {
       });
     }
 
-    const keywords = q.trim().split(/\s+/);
-    
-    // Tìm bài có BẤT KỲ từ khóa nào
+    const phrase = q.trim();
+
+    // Sử dụng regex để tìm kiếm chính xác hơn
     const news = await News.find({
-      $or: keywords.map(keyword => ({
-        $or: [
-          { title: { $regex: keyword, $options: "i" } },
-          { content: { $regex: keyword, $options: "i" } },
-          { description: { $regex: keyword, $options: "i" } }
-        ]
-      }))
+      $or: [
+        { title: { $regex: phrase, $options: 'i' } },
+        { content: { $regex: phrase, $options: 'i' } }
+      ]
     })
     .populate("author", "username fullName")
-    .sort({ createdAt: -1 })
+    .sort({ createdAt: -1 }) // Sắp xếp mới nhất trước
     .limit(50);
 
     res.status(200).json({

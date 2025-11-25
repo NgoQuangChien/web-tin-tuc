@@ -14,11 +14,6 @@ export default function RegisterForm({onClose, onSwitchToLogin}) {
     async function handleRegisterSubmit(e) {
         e.preventDefault();
         // Xử lý đăng ký ở đây
-        if (!username || !email || !password) {
-            setError("Vui lòng nhập đầy đủ thông tin");
-            return;
-        }
-
         try {
         const res = await axios.post("/auth/register", {
             username,
@@ -34,7 +29,7 @@ export default function RegisterForm({onClose, onSwitchToLogin}) {
             onSwitchToLogin();
         }, 1500);
         } catch (err) {
-            setError(err.response?.data?.message || "Đăng ký thất bại");
+            setError(err.response?.data || "Đăng ký thất bại");
             setSuccess(null);
         }
     }

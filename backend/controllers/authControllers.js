@@ -10,7 +10,34 @@ const authControllers = {
             // Mã hóa mật khẩu
             const salt = await bcrypt.genSalt(10);
             const hashed = await bcrypt.hash(req.body.password, salt);
+
+            if(!req.body.username || !req.body.email || !req.body.password){
+                return res.status(400).json("Vui lòng điền đầy đủ thông tin!");
+            }
             
+            if(req.body.username.length < 6){
+                return res.status(400).json("Tên đăng nhập phải có ít nhất 6 ký tự!");
+            }
+
+            if(req.body.password.length < 8){
+                return res.status(400).json("Mật khẩu phải có ít nhất 8 ký tự!");
+            }
+
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                return res.status(400).json("Email không hợp lệ!");
+            }
+
+            const emailExist = await User.findOne({ email });
+            if (emailExist) {
+                return res.status(400).json("Email đã tồn tại!");
+            }
+
+            const userExist = await User.findOne({ username });
+            if (userExist) {
+                return res.status(400).json("Username đã tồn tại!");
+            }
+
             // Tạo người dùng mới
             const newUser = new User({
                 username: req.body.username,
@@ -23,11 +50,7 @@ const authControllers = {
             res.status(200).json(savedUser);
         }catch(err){
             console.error(err); // Log ra server để debug
-            if (err.name === "ValidationError") {
-                const messages = Object.values(err.errors).map(val => val.message);
-                return res.status(400).json(messages.join(", "));
-            }
-            res.status(500).json("Người dùng đã tồn tại!");
+            return res.status(500).json("Có lỗi xảy ra, vui lòng thử lại!");
         }
     },
 
@@ -44,14 +67,15 @@ const authControllers = {
     // LOGIN USER
     loginUser: async(req, res) => {
         try{
-            const user = await User.findOne({username: req.body.username});
-            if(!user){
-                return res.status(404).json("Sai tên đăng nhập!");
+
+            if(!req.body.username || !req.body.password){
+                return res.status(400).json("Vui lòng điền đầy đủ thông tin!");
             }
 
+            const user = await User.findOne({username: req.body.username});
             const validPassword = await bcrypt.compare(req.body.password, user.password);
-            if(!validPassword){
-                return res.status(400).json("Sai mật khẩu!");
+            if(!user || !validPassword){
+                return res.status(400).json("Tên đăng nhập hoặc mật khẩu không đúng!");
             }
 
             if(user && validPassword){

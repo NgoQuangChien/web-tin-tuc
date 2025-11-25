@@ -146,7 +146,7 @@ export default function NewsManagement() {
           <NewsCard
             key={item._id}
             news={item}
-            onView={handleViewDetail}    //thêm dòng này
+            onView={handleViewDetail}
             onEdit={() => handleEdit(item)}
             onDelete={() => handleDelete(item._id)}
           />

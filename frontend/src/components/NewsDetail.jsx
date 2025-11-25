@@ -30,7 +30,6 @@ function NewsDetail({ show, onClose, news }) {
           <h3 className="detail-title">{news.title}</h3>
 
           <div className="detail-content">
-            {/* ---- Thêm ảnh ở đây ---- */}
             {news.image?.url && (
               <div className="detail-image">
                 <img
